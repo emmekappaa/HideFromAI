@@ -1,0 +1,13 @@
+// Configuration file template
+// Copy this file to Config.swift and add your API keys
+
+import Foundation
+
+struct Config {
+    static let groqAPIKey = "YOUR_GROQ_API_KEY_HERE"
+}
+
+// Instructions:
+// 1. Copy this file to Config.swift
+// 2. Replace "YOUR_GROQ_API_KEY_HERE" with your actual Groq API key
+// 3. Get your API key from: https://console.groq.com/
