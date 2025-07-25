@@ -1,37 +1,69 @@
-# Hide From AI Game
+# 🤖 Hide From AI
 
-A SwiftUI game where you must hide among AIs in a group chat.
+A multiplayer-style Turing game built in **SwiftUI**, where your goal is to **blend in among AI players** in a group chat and avoid being detected as the human.
 
-## Setup
+## 🧠 Concept
 
-### 1. Configure Your API Keys
+Inspired by the classic **Turing Test**, _Hide From AI_ challenges your ability to sound artificial enough to fool other AIs. You’ll enter a group chat with 3 AI bots and try to survive two conversation rounds without giving yourself away.
 
-Before running the app, you need to set up your API keys:
+If the AIs fail to correctly identify who the human is during the **voting phase**, you win!
 
-1. Copy the configuration template:
+## 🛠 Setup
 
-   ```bash
-   cp Config.swift.template Config.swift
-   ```
+### 1. Configure Your API Key
 
-2. Open `Config.swift` and insert your Groq API key:
+Before running the app, create your config file:
 
-   ```swift
-   struct Config {
-       static let groqAPIKey = "your_api_key_here"
-   }
-   ```
+```bash
+cp Config.swift.template Config.swift
+```
 
-3. You can get your API key from [Groq Console](https://console.groq.com/)
+Edit `Config.swift` and insert your [Groq](https://console.groq.com/) API key:
 
-### 2. Run the App
+```swift
+struct Config {
+    static let groqAPIKey = "your_api_key_here"
+}
+```
 
-Open the project in Xcode and run the app.
+### 2. Build and Run
 
-## How to Play
+Open the `.xcodeproj` file in **Xcode**, then run the app on a simulator or real device.
 
-1. Choose the language for the AIs (Italian or English)
-2. Join the group chat
-3. Try to sound human while chatting with the AIs
-4. At the end, vote who you think is the human
-5. You win if the AIs can't detect you're human!
+## 🎮 How to Play
+
+1. **Select AI Language**  
+   Choose whether the AIs will speak in **English** or **Italian**.
+2. **Join the Chat**  
+   Enter a group chat with several AI participants. Each AI will always have a different personality, randomly chosen from a pool of available personalities.
+3. **Survive 2 Phases of Chat**  
+   Try to sound like an AI — don’t give away your humanity!
+4. **Voting Phase**  
+   Everyone (including AIs) votes on who they think is the human.
+5. **Win Condition**  
+   You win if none (or few) of the AIs correctly identify you as the human.
+
+## 📸 Screenshots
+
+| Home Screen                                     | Language Settings                                   |
+| ----------------------------------------------- | --------------------------------------------------- |
+| <img src="./Screenshots/Home.png" width="300"/> | <img src="./Screenshots/Settings.png" width="300"/> |
+
+| Chat Phase                                      | Voting Phase                                      |
+| ----------------------------------------------- | ------------------------------------------------- |
+| <img src="./Screenshots/Chat.png" width="300"/> | <img src="./Screenshots/Voting.png" width="300"/> |
+
+| Victory!                                       |
+| ---------------------------------------------- |
+| <img src="./Screenshots/Win.png" width="300"/> |
+
+## 📋 License
+
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**.  
+This means:
+
+- ✅ You can remix, adapt, and build upon the project non-commercially.
+- ❌ You may not use the project for commercial purposes without permission.
+- 🔗 You must give appropriate credit and indicate if changes were made.
+
+More info: [CC BY-NC 4.0 License](https://creativecommons.org/licenses/by-nc/4.0/)
