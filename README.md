@@ -34,14 +34,23 @@ Open the `.xcodeproj` file in **Xcode**, then run the app on a simulator or real
 
 1. **Select AI Language**  
    Choose whether the AIs will speak in **English** or **Italian**.
+
 2. **Join the Chat**  
-   Enter a group chat with several AI participants. Each AI will always have a different personality, randomly chosen from a pool of available personalities.
-3. **Survive 2 Phases of Chat**  
-   Try to sound like an AI — don’t give away your humanity!
-4. **Voting Phase**  
+   Enter a group chat with 3 AI participants. Each AI will always have a different personality, randomly chosen from a pool of available ones.
+
+3. **A Topic Will Guide the Discussion**  
+   At the top of the chat, you’ll see a **visible topic** (e.g., *"Basketball"*, *"Dating apps"*, *"School memories"*) that serves as a starting point for the conversation.  
+   > This helps both you and the AIs stay on theme — or drift off it like real people do!
+
+4. **Survive 2 Chat Phases**  
+   Try to sound like one of the bots — don’t make it obvious you're human. Stay casual, vague, or chaotic. Blend in!
+
+5. **Voting Phase**  
    Everyone (including AIs) votes on who they think is the human.
-5. **Win Condition**  
-   You win if none (or few) of the AIs correctly identify you as the human.
+
+6. **Win Condition**  
+   You win if the AIs **fail to detect you** as the human.
+
 
 ## 📸 Screenshots
 
