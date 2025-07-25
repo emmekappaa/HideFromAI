@@ -49,13 +49,9 @@ Open the `.xcodeproj` file in **Xcode**, then run the app on a simulator or real
 | ----------------------------------------------- | --------------------------------------------------- |
 | <img src="./Screenshots/Home.png" width="300"/> | <img src="./Screenshots/Settings.png" width="300"/> |
 
-| Chat Phase                                      | Voting Phase                                      |
-| ----------------------------------------------- | ------------------------------------------------- |
-| <img src="./Screenshots/Chat.png" width="300"/> | <img src="./Screenshots/Voting.png" width="300"/> |
-
-| Victory!                                       |
-| ---------------------------------------------- |
-| <img src="./Screenshots/Win.png" width="300"/> |
+| Chat Phase                                      | Victory!                                       |
+| ----------------------------------------------- | ---------------------------------------------- |
+| <img src="./Screenshots/Chat.png" width="300"/> | <img src="./Screenshots/Win.png" width="300"/> |
 
 ## 📋 License
 
