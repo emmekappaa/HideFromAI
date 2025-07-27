@@ -199,6 +199,12 @@ struct LanguageSettingsView: View {
     }
 }
 
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
 struct ContentView: View {
     @State private var volume: Double = 50 // State for volume control
     @State private var playerResponse: String = "" // State for player response
@@ -442,6 +448,9 @@ struct ContentView: View {
             Spacer() // Spacing to push content upward
         }
         .padding() // General padding around content
+        .onTapGesture {
+            UIApplication.shared.endEditing()
+        }
         .onAppear {
             startNewRound()
         }
