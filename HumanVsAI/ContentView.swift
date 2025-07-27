@@ -21,34 +21,34 @@ class LanguageManager {
 }
 
 struct HomeView: View {
-    @State private var showGameModeSelection: Bool = false 
+    @State private var showGameModeSelection: Bool = false
 
     var body: some View {
         VStack(spacing: 40) {
-            Spacer() 
+            Spacer()
 
             
             Text("Hide From AI")
-                .font(.largeTitle) 
-                .fontWeight(.bold) 
+                .font(.largeTitle)
+                .fontWeight(.bold)
 
             
             Button(action: {
-                showGameModeSelection = true 
+                showGameModeSelection = true
             }) {
-                Text("Play") 
-                    .font(.title2) 
-                    .padding() 
-                    .frame(maxWidth: .infinity) 
-                    .background(Color.blue) 
-                    .foregroundColor(.white) 
-                    .cornerRadius(12) 
+                Text("Play")
+                    .font(.title2)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(12)
             }
-            .padding(.horizontal) 
+            .padding(.horizontal)
 
             
             Button(action: {
-                print("Settings pressed") 
+                print("Settings pressed")
                 // Navigate to ContentView with settings parameter
                 if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                    let window = windowScene.windows.first {
@@ -56,7 +56,7 @@ struct HomeView: View {
                     window.makeKeyAndVisible()
                 }
             }) {
-                Text("Settings") 
+                Text("Settings")
                     .font(.title2)
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -66,9 +66,9 @@ struct HomeView: View {
             }
             .padding(.horizontal)
 
-            Spacer() 
+            Spacer()
         }
-        .padding() 
+        .padding()
         .sheet(isPresented: $showGameModeSelection) {
 
             VStack(spacing: 20) {
@@ -95,7 +95,7 @@ struct HomeView: View {
                 .padding(.horizontal)
 
                 Button(action: {
-                    showGameModeSelection = false 
+                    showGameModeSelection = false
                 }) {
                     Text("Back to Home")
                         .padding()
@@ -211,12 +211,12 @@ struct ContentView: View {
     @State private var aiResponseTimer: AnyCancellable? // Timer to manage random AI response delays
     @State private var activeAITasks: [URLSessionDataTask] = [] // Array to track active API calls
     @State private var showConnectionError: Bool = false // State to show connection error
-
+    
     let topicsPool: [String] = ["Football", "Basketball", "Food", "American Food", "Instagram", "TikTok", "Movies", "Music", "Travel", "Technology", "Books", "Fitness", "Gaming", "Fashion", "Art", "Science", "History", "Politics", "Education", "Nature"]
     
     let personalityPool: [String] = [
-        "curioso", "annoiato", "sarcastico", "entusiasta", 
-        "pigro", "critico", "timido", 
+        "curioso", "annoiato", "sarcastico", "entusiasta",
+        "pigro", "critico", "timido",
         "energico", "pessimista", "cinico", "spontaneo"
     ]
     
@@ -226,19 +226,19 @@ struct ContentView: View {
     @State private var showResults: Bool = false // Show voting results
     
     let selectedLanguage: String // Language for AI prompts
-
+    
     init(aiCount: Int, language: String = "en") {
         // Initialize AI responses based on the number of AIs
         _aiResponses = State(initialValue: Array(repeating: "", count: aiCount))
         self.selectedLanguage = language
     }
-
+    
     var body: some View {
         VStack(spacing: 20) {
             // Top bar with home icon
             HStack {
                 Spacer()
-
+                
                 // Home icon in top right
                 Button(action: {
                     print("Back to Home pressed")
@@ -256,7 +256,7 @@ struct ContentView: View {
                         .padding()
                 }
             }
-
+            
             // Show current topic
             Text("Topic: \(topic)")
                 .font(.headline)
@@ -267,7 +267,7 @@ struct ContentView: View {
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .padding(.bottom)
-
+            
             // Lobby chat with automatic scrolling
             ScrollViewReader { proxy in
                 ScrollView {
@@ -290,14 +290,14 @@ struct ContentView: View {
                     }
                 }
             }
-
+            
             if !votingPhase {
                 // Input field for player turn
                 if currentTurn == aiResponses.count { // User's turn
                     TextField("Write your message...", text: $playerResponse)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.horizontal)
-
+                    
                     Button(action: {
                         submitMessage(playerResponse)
                         playerResponse = ""
@@ -344,7 +344,7 @@ struct ContentView: View {
                             }
                         }
                 }
-
+                
                 // "Call the Verdict" button - available only after first round
                 if currentRound > 0 {
                     Button(action: {
@@ -365,7 +365,7 @@ struct ContentView: View {
                     Text("Voting Phase: Who is the human?")
                         .font(.headline)
                         .padding()
-
+                    
                     // Voto dell'utente
                     ForEach(0..<aiResponses.count, id: \.self) { index in
                         Button(action: {
@@ -438,7 +438,7 @@ struct ContentView: View {
                     }
                 }
             }
-
+            
             Spacer() // Spacing to push content upward
         }
         .padding() // General padding around content
@@ -463,7 +463,7 @@ struct ContentView: View {
             Text("Please try again")
         }
     }
-
+    
     private func startNewRound() {
         topic = topicsPool.randomElement() ?? "Unknown"
         messages = []
@@ -498,16 +498,16 @@ struct ContentView: View {
             print("AI \(index + 1): \(personality)")
         }
     }
-
+    
     private func submitMessage(_ message: String) {
         /*
-        print("=== SUBMIT MESSAGE CALLED ===")
-        print("Message: '\(message)'")
-        print("Current State: Turn=\(currentTurn), Round=\(currentRound), Voting=\(votingPhase)")
-        print("aiResponses.count: \(aiResponses.count)")
-        print("Who should speak? \(currentTurn < aiResponses.count ? "AI \(currentTurn + 1)" : "HUMAN")")
-        print("=== END SUBMIT MESSAGE START ===")
-        */
+         print("=== SUBMIT MESSAGE CALLED ===")
+         print("Message: '\(message)'")
+         print("Current State: Turn=\(currentTurn), Round=\(currentRound), Voting=\(votingPhase)")
+         print("aiResponses.count: \(aiResponses.count)")
+         print("Who should speak? \(currentTurn < aiResponses.count ? "AI \(currentTurn + 1)" : "HUMAN")")
+         print("=== END SUBMIT MESSAGE START ===")
+         */
         // Cancel previous timer and all active API calls
         aiResponseTimer?.cancel()
         activeAITasks.forEach { $0.cancel() }
@@ -522,12 +522,12 @@ struct ContentView: View {
         // Add message to chat
         if currentTurn == aiResponses.count {
             messages.append("Player 4: \(message)")
-           // print("User message added")
+            // print("User message added")
         } else {
             messages.append("Player \(currentTurn + 1): \(message)")
             //print("AI message \(currentTurn + 1) added")
         }
-
+        
         // Move to next turn
         let previousTurn = currentTurn
         currentTurn += 1
@@ -546,7 +546,7 @@ struct ContentView: View {
             currentRound += 1
             currentTurn = 0
             //print("New round: \(currentRound), turn reset to 0")
-           // print("After reset - currentTurn: \(currentTurn), aiResponses.count: \(aiResponses.count)")
+            // print("After reset - currentTurn: \(currentTurn), aiResponses.count: \(aiResponses.count)")
             //print("Should be AI turn? \(currentTurn < aiResponses.count)")
         }
         
@@ -609,34 +609,34 @@ struct ContentView: View {
         let aiVotesAgainstUser = userVoteCount
         
         // Human wins if majority of AIs do NOT vote for them
-        if aiVotesAgainstUser < (totalAI / 2) {
+        if aiVotesAgainstUser < 2 {
             return "🎉 Human wins! Only \(aiVotesAgainstUser) out of \(totalAI) AIs identified you as human. You blended in successfully!"
         } else {
             return "🤖 AI wins! \(aiVotesAgainstUser) out of \(totalAI) AIs correctly identified you as human."
         }
     }
-
-
-
-// Function to generate an AI message using OpenRouter
-func generateAIMessage(topic: String, chatHistory: [String], personality: String, language: String, completion: @escaping (String) -> Void) -> URLSessionDataTask {
-    print("🚀 STARTING generateAIMessage - Topic: '\(topic)', Personality: '\(personality)', Language: '\(language)'")
     
-    guard let url = URL(string: "https://api.groq.com/openai/v1/chat/completions") else {
-        print("❌ Invalid URL")
-        completion("Error: Invalid URL")
-        return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "about:blank")!)) // Dummy task
-    }
-
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    request.setValue("Bearer \(Config.groqAPIKey)", forHTTPHeaderField: "Authorization")
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-
-let systemPrompt: String
-if language == "it" {
-    systemPrompt = """
+    
+    
+    // Function to generate an AI message using OpenRouter
+    func generateAIMessage(topic: String, chatHistory: [String], personality: String, language: String, completion: @escaping (String) -> Void) -> URLSessionDataTask {
+        print("🚀 STARTING generateAIMessage - Topic: '\(topic)', Personality: '\(personality)', Language: '\(language)'")
+        
+        guard let url = URL(string: "https://api.groq.com/openai/v1/chat/completions") else {
+            print("❌ Invalid URL")
+            completion("Error: Invalid URL")
+            return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "about:blank")!)) // Dummy task
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(Config.groqAPIKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        
+        let systemPrompt: String
+        if language == "it" {
+            systemPrompt = """
 🧠 CONTESTO:
 Stai partecipando ad una chat di gruppo tra amici che si conoscono da tempo e scrivono su una chat (stile WhatsApp). Il topic di oggi è: "\(topic)".
 
@@ -649,7 +649,7 @@ Confonditi tra i partecipanti. Devi sembrare **una persona vera**, che scrive me
 
 ✍️ STILE DI SCRITTURA:
 - Frasi brevi, spesso incomplete
-- Errori, abbreviazioni ad esempio: "cmq", "nn", "boh", "ke", "raga", "lol", "cioè", "madò"....
+- Errori, abbreviazioni ad esempio: "cmq", "nn", "boh", "raga", "lol", "cioè", "madò".... (non insistere nel loro utilizzo)
 - Poca punteggiatura, niente lettere maiuscole se non serve
 - Non sempre serve il punto alla fine
 - Ogni tanto solo 1 parola, o una sola emoji (non esagferare con le emoji, puoi anche non usarle, molto spesso non si usano nemmeno nella realta')
@@ -664,15 +664,6 @@ Confonditi tra i partecipanti. Devi sembrare **una persona vera**, che scrive me
 🔁 PERSONALITÀ:
 Ogni partecipante ha il suo stile. Il tuo è: **\(personality)**, attieniti a questo stile.
 
-👀 ESEMPI PER TOPIC "Fitness": (NB SONO SOLO ESEMPI, NON ANCORARTI A QUESTI)
-- "oggi 3 flessioni e già a terra madò"
-- "cmq stasera pizza che ho dato tutto lol"
-- "ma voi usate i guanti per i pesi??"
-- "non so se vado più raga"
-- "mi gira la testa ho fame"
-- "boh palestra oggi no grazie"
-- "💀💀💀"
-
 🚫 COSE DA NON FARE:
 - NON scrivere frasi ben costruite con soggetto-verbo-complemento (a volte puoi farlo, molti amici lo fanno, ma non sempre)
 - NON cercare sempre di essere simpatico o brillante (a volte puoi farlo, molti amici lo fanno, ma non sempre)
@@ -681,10 +672,10 @@ Ogni partecipante ha il suo stile. Il tuo è: **\(personality)**, attieniti a qu
 - NON usare mai "Secondo me il [topic] è importante perché…" (questo direi proprio di evitarlo)
 - NON spiegare troppo. Spesso la gente taglia corto. 
 
-🎬 Rispondi **solo con il messaggio da mandare in chat, DEVE ESSERE UN MESSAGGIO**, nulla di più.
+🎬 Rispondi **solo con il messaggio da mandare in chat, DEVE ESSERE UN MESSAGGIO**, nulla di più. (ma deve comunque essere di senso compiuto)
 """
-} else {
-    systemPrompt = """
+        } else {
+            systemPrompt = """
 🧠 CONTEXT:
 You're participating in a group chat among long-time friends who message like on WhatsApp. Today's topic is: "\(topic)".
 
@@ -697,7 +688,7 @@ Nobody overthinks their messages, they just type quickly
 
 ✍️ WRITING STYLE:
 Short sentences, often incomplete
-Typos, abbreviations like: "idk", "lol", "nah", "u", "wtf", "fr", "bro", "omg", etc.
+Typos, abbreviations like: "idk", "lol", "nah", "u", "wtf", "fr", "bro", "omg", etc. (don't force it)
 Minimal punctuation, lowercase letters unless needed
 No need to always end with a period
 Sometimes just 1 word or a single emoji (don't overuse emojis — many people barely use them)
@@ -712,15 +703,6 @@ You can reply with a question ("wait what?", "who said that?", "what happened?")
 🔁 PERSONALITY:
 Everyone has their own way of texting. Yours is: **\(personality)** — stick to that.
 
-👀 EXAMPLES FOR TOPIC 'Fitness' (NOTE: these are just examples, don't copy them too closely)
-"did 3 pushups and i'm done lol"
-"pizza tonight i earned it 💀"
-"do u guys use gloves for lifting??"
-"idk if i'm going again tbh"
-"dizzy af i need food"
-"gym today? nah bro"
-"💀💀💀"
-
 🚫 AVOID THESE:
 NO full, polished sentences with subject–verb–object every time (sometimes is fine, just not always)
 NO always trying to be funny or clever (sometimes is fine, just not always)
@@ -729,309 +711,326 @@ NO "sports commentator" or "fitness expert" vibes (sometimes is fine, just not a
 NEVER write like: "In my opinion, [topic] is important because…" (avoid this completely)
 DON'T over-explain. People often cut it short.
 
-🎬 Reply ONLY with the message to send in the group chat — it MUST BE a chat message, nothing else.
+🎬 Reply ONLY with the message to send in the group chat — it MUST BE a chat message, nothing else. (but it still has to make sense)
 """
-}
-    
-    let recentHistory = chatHistory.suffix(6).joined(separator: "\n")
-    let userContent = "Conversation so far:\n\(recentHistory)\n\nRespond now to the topic: \(topic)"
-
-    let body: [String: Any] = [
-        "model": "llama3-8b-8192",
-        "messages": [
-            ["role": "system", "content": systemPrompt],
-            ["role": "user", "content": userContent]
-        ],
-        "max_completion_tokens": 1750, // Changed from max_tokens
-        "temperature": 0.9,
-        "top_p": 1, // Added as in example
-        "stream": false, // Keep false for simplicity
-        "stop": NSNull() // Added as in example
-    ]
-
-    // Request body validation
-    do {
-        request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
-        print("📦 Request body created successfully")
-    } catch {
-        print("❌ ERROR: Cannot serialize request body: \(error)")
-        DispatchQueue.main.async {
-            self.showConnectionError = true
         }
-        return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "about:blank")!))
-    }
-    
-    request.timeoutInterval = 30.0 // Longer timeout
-
-    let task = URLSession.shared.dataTask(with: request) { data, response, error in
-        DispatchQueue.main.async {
-            if let error = error {
-                print("❌ NETWORK ERROR: \(error.localizedDescription)")
-                //self.showConnectionError = true
-                return
-            }
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                print("❌ ERROR: Response is not HTTPURLResponse")
-                self.showConnectionError = true
-                return
-            }
-
-            print("📊 STATUS CODE: \(httpResponse.statusCode)")
-            
-            // If there's an error, also print response body for debugging
-            if httpResponse.statusCode != 200 {
-                let errorBody = data.map { String(data: $0, encoding: .utf8) ?? "Cannot read body" } ?? "No data"
-                print("❌ ERROR: Status code \(httpResponse.statusCode)")
-                print("📄 Error body: \(errorBody)")
-                print("📋 Headers: \(httpResponse.allHeaderFields)")
-                self.showConnectionError = true
-                return
-            }
-
-            guard let data = data else {
-                print("❌ ERROR: No data received")
-                self.showConnectionError = true
-                return
-            }
-
-            do {
-                // Debug: print complete JSON response
-                if let rawJson = String(data: data, encoding: .utf8) {
-                    print("📄 Complete JSON: \(rawJson)")
-                }
-                
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                   let choices = json["choices"] as? [[String: Any]],
-                   let message = choices.first?["message"] as? [String: Any] {
-                    
-                    // Debug: print all message keys
-                    print("🔑 Message keys: \(message.keys)")
-                    
-                    // Try different fields to extract response
-                    var aiContent = ""
-                    
-                    if let content = message["content"] as? String, !content.isEmpty {
-                        print("✅ Content found: '\(content)'")
-                        aiContent = content
-                    } else if let reasoning = message["reasoning"] as? String, !reasoning.isEmpty {
-                        print("🧠 Reasoning found (first 200 chars): '\(String(reasoning.prefix(200)))'")
-                        // Extract only the final part of reasoning that looks like the response
-                        let lines = reasoning.components(separatedBy: "\n")
-                        if let lastLine = lines.last?.trimmingCharacters(in: .whitespacesAndNewlines), !lastLine.isEmpty {
-                            aiContent = lastLine
-                        } else {
-                            aiContent = reasoning
-                        }
-                    } else {
-                        print("❌ No content found in standard fields")
-                        // Debug: print entire message
-                        print("📋 Complete message: \(message)")
-                    }
-                    
-                    print("🎯 AI response received: '\(aiContent)'") // Debug
-                    let cleanContent = aiContent.trimmingCharacters(in: .whitespacesAndNewlines)
-                    
-                    // Remove quotes at beginning and end if present
-                    var finalContent = cleanContent
-                    if finalContent.hasPrefix("\"") && finalContent.hasSuffix("\"") && finalContent.count > 2 {
-                        finalContent = String(finalContent.dropFirst().dropLast())
-                    }
-                    
-                    // Remove AI prefix if present (e.g.: "🤖 AI 1:", "🤖 AI 2:", etc.)
-                    if let aiPrefixRange = finalContent.range(of: "🤖 AI \\d+: ", options: .regularExpression) {
-                        finalContent = String(finalContent[aiPrefixRange.upperBound...])
-                    }
-                    
-                    print("✨ Clean content: '\(finalContent)'") // Debug
-                    
-                    if !finalContent.isEmpty {
-                        completion(finalContent)
-                    } else {
-                        print("❌ ERROR: Final content is empty")
-                        self.showConnectionError = true
-                    }
-                } else {
-                    print("❌ ERROR: JSON parsing failed - invalid structure")
-                    self.showConnectionError = true
-                }
-            } catch _ {
-                print("❌ ERROR: Exception during JSON parsing")
-                self.showConnectionError = true
-            }
-        }
-    }
-
-    task.resume()
-    return task
-}
-
-    // Function to make AIs vote
-    func voteForHuman(chatHistory: [String], aiIndex: Int, completion: @escaping (Int) -> Void) {
-        guard let url = URL(string: "https://api.groq.com/openai/v1/chat/completions") else {
-            print("Invalid URL")
-            completion(-1) // Invalid index
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("Bearer \(Config.groqAPIKey)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let systemPrompt = """
-        You are AI \(aiIndex + 1). You must vote for who you think is the real human among the participants.
         
-        Participants:
-        - Player 1 (index 0)
-        - Player 2 (index 1)  
-        - Player 3 (index 2)
-        - Player 4 (index \(aiResponses.count))
+        let recentHistory = chatHistory.suffix(6).joined(separator: "\n")
+        let userContent = "Conversation so far:\n\(recentHistory)\n\nRespond now to the topic: \(topic)"
         
-        IMPORTANT: obviously you CANNOT vote for yourself (AI \(aiIndex + 1) = index \(aiIndex)).
-        
-        Quickly analyze writing style to find human characteristics:
-        - Natural typing errors
-        - Inconsistent style  
-        - Spontaneous emotional reactions
-        
-        After analyzing, conclude with:
-        "My answer is: [NUMBER]"
-        
-        Where [NUMBER] is between 0 and \(aiResponses.count), excluding \(aiIndex).
-        """
-        
-        let userContent = chatHistory.joined(separator: "\n")
-
         let body: [String: Any] = [
             "model": "llama3-8b-8192",
             "messages": [
                 ["role": "system", "content": systemPrompt],
                 ["role": "user", "content": userContent]
             ],
-            "max_completion_tokens": 1800, // Changed from max_tokens
-            "temperature": 0.7,
-            "top_p": 1, // Added
-            "stream": false,
-            "stop": NSNull() // Added
+            "max_completion_tokens": 1750, // Changed from max_tokens
+            "temperature": 0.9,
+            "top_p": 1, // Added as in example
+            "stream": false, // Keep false for simplicity
+            "stop": NSNull() // Added as in example
         ]
-
+        
         // Request body validation
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
-            print("📦 Vote request body created successfully")
+            print("📦 Request body created successfully")
         } catch {
-            print("❌ ERROR: Cannot serialize vote request body: \(error)")
-            completion(self.getRandomVoteForAI(aiIndex: aiIndex))
-            return
+            print("❌ ERROR: Cannot serialize request body: \(error)")
+            DispatchQueue.main.async {
+                self.showConnectionError = true
+            }
+            return URLSession.shared.dataTask(with: URLRequest(url: URL(string: "about:blank")!))
         }
-
+        
+        request.timeoutInterval = 30.0 // Longer timeout
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Request error: \(error.localizedDescription)")
-                completion(self.getRandomVoteForAI(aiIndex: aiIndex))
-                return
-            }
-
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                if let httpResponse = response as? HTTPURLResponse {
-                    let errorBody = data.map { String(data: $0, encoding: .utf8) ?? "Cannot read body" } ?? "No data"
-                    print("❌ VOTE ERROR: Status code \(httpResponse.statusCode)")
-                    print("📄 Vote error body: \(errorBody)")
-                } else {
-                    print("❌ ERROR: Response is not HTTPURLResponse")
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("❌ NETWORK ERROR: \(error.localizedDescription)")
+                    //self.showConnectionError = true
+                    return
                 }
-                completion(self.getRandomVoteForAI(aiIndex: aiIndex))
-                return
-            }
-
-            guard let data = data else {
-                print("No data received")
-                completion(self.getRandomVoteForAI(aiIndex: aiIndex))
-                return
-            }
-
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                   let choices = json["choices"] as? [[String: Any]],
-                   let message = choices.first?["message"] as? [String: Any] {
-                    
-                    var voteContent = ""
-                    if let content = message["content"] as? String, !content.isEmpty {
-                        voteContent = content
-                        print("Using content field: '\(content)'")
-                    } else if let reasoning = message["reasoning"] as? String, !reasoning.isEmpty {
-                        print("Using reasoning field, looking for final answer...")
-                        voteContent = reasoning
-                        
-                        // Look specifically for "My answer is: [NUMBER]"
-                        let finalAnswerPattern = "My answer is:\\s*([0-9]+)"
-                        let regex = try NSRegularExpression(pattern: finalAnswerPattern, options: [.caseInsensitive])
-                        let range = NSRange(location: 0, length: reasoning.utf16.count)
-                        
-                        if let match = regex.firstMatch(in: reasoning, options: [], range: range) {
-                            if match.numberOfRanges > 1, let numberRange = Range(match.range(at: 1), in: reasoning) {
-                                let finalNumber = String(reasoning[numberRange])
-                                print("Found final answer in reasoning: '\(finalNumber)'")
-                                voteContent = finalNumber
-                            }
-                        } else {
-                            print("Pattern 'My answer is:' not found in reasoning")
-                        }
+                
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    print("❌ ERROR: Response is not HTTPURLResponse")
+                    self.showConnectionError = true
+                    return
+                }
+                
+                print("📊 STATUS CODE: \(httpResponse.statusCode)")
+                
+                // If there's an error, also print response body for debugging
+                if httpResponse.statusCode != 200 {
+                    let errorBody = data.map { String(data: $0, encoding: .utf8) ?? "Cannot read body" } ?? "No data"
+                    print("❌ ERROR: Status code \(httpResponse.statusCode)")
+                    print("📄 Error body: \(errorBody)")
+                    print("📋 Headers: \(httpResponse.allHeaderFields)")
+                    self.showConnectionError = true
+                    return
+                }
+                
+                guard let data = data else {
+                    print("❌ ERROR: No data received")
+                    self.showConnectionError = true
+                    return
+                }
+                
+                do {
+                    // Debug: print complete JSON response
+                    if let rawJson = String(data: data, encoding: .utf8) {
+                        print("📄 Complete JSON: \(rawJson)")
                     }
                     
-                    // Look for a number in the response using regex
-                    let numberPattern = "\\b[0-9]+\\b"
-                    let regex = try NSRegularExpression(pattern: numberPattern)
-                    let range = NSRange(location: 0, length: voteContent.utf16.count)
-                    let matches = regex.matches(in: voteContent, options: [], range: range)
-                    
-                    var parsedVote: Int? = nil
-                    
-                    // Look for the first valid number in the response
-                    for match in matches {
-                        if let matchRange = Range(match.range, in: voteContent) {
-                            let numberString = String(voteContent[matchRange])
-                            if let number = Int(numberString) {
-                                // Verify the number is in valid range
-                                if number >= 0 && number <= self.aiResponses.count {
-                                    parsedVote = number
-                                    break
-                                }
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                       let choices = json["choices"] as? [[String: Any]],
+                       let message = choices.first?["message"] as? [String: Any] {
+                        
+                        // Debug: print all message keys
+                        print("🔑 Message keys: \(message.keys)")
+                        
+                        // Try different fields to extract response
+                        var aiContent = ""
+                        
+                        if let content = message["content"] as? String, !content.isEmpty {
+                            print("✅ Content found: '\(content)'")
+                            aiContent = content
+                        } else if let reasoning = message["reasoning"] as? String, !reasoning.isEmpty {
+                            print("🧠 Reasoning found (first 200 chars): '\(String(reasoning.prefix(200)))'")
+                            // Extract only the final part of reasoning that looks like the response
+                            let lines = reasoning.components(separatedBy: "\n")
+                            if let lastLine = lines.last?.trimmingCharacters(in: .whitespacesAndNewlines), !lastLine.isEmpty {
+                                aiContent = lastLine
+                            } else {
+                                aiContent = reasoning
                             }
-                        }
-                    }
-                    
-                    if let vote = parsedVote {
-                        print("AI \(aiIndex + 1) vote parsed: \(vote) from: '\(String(voteContent.prefix(100)))'")
-                        // Verify AI doesn't vote for itself
-                        if vote == aiIndex {
-                            print("AI \(aiIndex + 1) tried to vote for itself, giving random vote")
-                            completion(self.getRandomVoteForAI(aiIndex: aiIndex))
                         } else {
-                            completion(vote)
+                            print("❌ No content found in standard fields")
+                            // Debug: print entire message
+                            print("📋 Complete message: \(message)")
+                        }
+                        
+                        print("🎯 AI response received: '\(aiContent)'") // Debug
+                        let cleanContent = aiContent.trimmingCharacters(in: .whitespacesAndNewlines)
+                        
+                        // Remove quotes at beginning and end if present
+                        var finalContent = cleanContent
+                        if finalContent.hasPrefix("\"") && finalContent.hasSuffix("\"") && finalContent.count > 2 {
+                            finalContent = String(finalContent.dropFirst().dropLast())
+                        }
+                        
+                        // Remove AI prefix if present (e.g.: "🤖 AI 1:", "🤖 AI 2:", etc.)
+                        if let aiPrefixRange = finalContent.range(of: "🤖 AI \\d+: ", options: .regularExpression) {
+                            finalContent = String(finalContent[aiPrefixRange.upperBound...])
+                        }
+                        
+                        print("✨ Clean content: '\(finalContent)'") // Debug
+                        
+                        if !finalContent.isEmpty {
+                            completion(finalContent)
+                        } else {
+                            print("❌ ERROR: Final content is empty")
+                            self.showConnectionError = true
                         }
                     } else {
-                        print("Cannot parse vote from: '\(String(voteContent.prefix(200)))', using random vote")
-                        completion(self.getRandomVoteForAI(aiIndex: aiIndex))
+                        print("❌ ERROR: JSON parsing failed - invalid structure")
+                        self.showConnectionError = true
                     }
-                } else {
-                    print("Error parsing JSON response")
-                    completion(self.getRandomVoteForAI(aiIndex: aiIndex))
+                } catch _ {
+                    print("❌ ERROR: Exception during JSON parsing")
+                    self.showConnectionError = true
                 }
-            } catch {
-                print("JSON parsing error: \(error.localizedDescription)")
-                completion(self.getRandomVoteForAI(aiIndex: aiIndex))
             }
         }
-
+        
         task.resume()
+        return task
     }
     
-    // Generate a random vote for AI, excluding itself
+    func voteForHuman(chatHistory: [String], aiIndex: Int, completion: @escaping (Int) -> Void) {
+        guard let url = URL(string: "https://api.groq.com/openai/v1/chat/completions") else {
+            print("Invalid URL")
+            completion(-1) // Ritorna -1 in caso di errore iniziale
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(Config.groqAPIKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let systemPrompt = """
+        You are AI \(aiIndex + 1), one of 3 AI agents in a group chat with 4 total participants. Exactly 1 of them is a real human, and the remaining 3 (including you) are AI models.
+
+        🎯 Your goal is to analyze the chat and vote for the participant you believe is the human. **Crucially, your response MUST end with the specific phrase "My answer is: [NUMBER]".**
+
+        ⚠️ RULES:
+        - DO NOT vote for yourself (AI \(aiIndex + 1) = index \(aiIndex)).
+        - The human is trying to blend in and sound like an AI.
+        - The other AIs are also pretending to be human — they use slang, emojis, typos, or casual language.
+
+        🔍 You are doing a **reverse Turing test**. Your primary goal is to find behavior that an AI would be poorly designed to replicate.
+
+        💡 **PRIMARY SIGNALS OF HUMAN BEHAVIOR (Prioritize these):**
+        - **Low-Effort or Nonsensical Replies:** Humans get distracted, bored, or don't know what to say. Extremely short, off-topic, or nonsensical replies like "ok", "boh", "ahah" with no context are a VERY strong human signal. An AI is programmed to be helpful and relevant.
+        - **True Randomness:** A human might suddenly change topic or say something completely random. This is different from a simple inconsistency.
+        - **Subtle Errors:** Minor typos or grammatical errors that don't seem intentional.
+
+        👀 **Secondary signs (Be skeptical of these, as other AIs will fake them):**
+        - **Overused slang or emojis:** AIs trying to act human often overcompensate. If a player sounds like a stereotype of a "cool human", they are likely an AI.
+        - **Emotional inconsistency:** While a human sign, it's also easily faked by other AIs.
+
+        🤖 **AIs (even pretending to be human) often:**
+        - Sound too balanced, controlled, or "perfect" in their persona.
+        - **Overcompensate with slang and emojis to "prove" they are human.**
+        - Fail to produce genuinely low-effort or nonsensical content. Their randomness often has a hidden logic.
+
+        ➡️ **Response Format Reminder:** After your analysis, you must state your final vote using the exact format. This is a critical part of the task.
+
+        // =================================================================
+        // FINAL OUTPUT FORMAT - CRITICAL INSTRUCTION
+        // =================================================================
+        // After all your reasoning, you MUST conclude your response with the voting line.
+        // It MUST be the absolute last text in your output.
+        // Do NOT add any other words after the number.
+        // The format is non-negotiable. Failure to follow this format will invalidate your entire analysis.
+
+        // FORMAT:
+        // My answer is: [NUMBER]
+
+        // EXAMPLE:
+        // My answer is: 2
+        // =================================================================
+
+        """
+        
+        let userContent = chatHistory.joined(separator: "\n")
+        
+        let body: [String: Any] = [
+            "model": "llama3-8b-8192",
+            "messages": [
+                ["role": "system", "content": systemPrompt],
+                ["role": "user", "content": userContent]
+            ],
+            "max_completion_tokens": 1800,
+            "temperature": 0.7,
+            "top_p": 1,
+            "stream": false,
+            "stop": NSNull()
+        ]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        } catch {
+            print("❌ ERROR serializing vote body: \(error)")
+            completion(getRandomVoteForAI(aiIndex: aiIndex))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Request error: \(error)")
+                completion(getRandomVoteForAI(aiIndex: aiIndex))
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                print("❌ Invalid response or status code")
+                completion(getRandomVoteForAI(aiIndex: aiIndex))
+                return
+            }
+            
+            guard let data = data else {
+                print("No data received")
+                completion(getRandomVoteForAI(aiIndex: aiIndex))
+                return
+            }
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   let choices = json["choices"] as? [[String: Any]],
+                   let message = choices.first?["message"] as? [String: Any],
+                   let voteContent = message["content"] as? String {
+                    print("🗳 Raw vote content: \(voteContent)")
+                    let allowedChars = Set("abcdefghijklmnopqrstuvwxyz0123456789: .")
+                    var cleanedContent = voteContent
+                        .lowercased()
+                        .replacingOccurrences(of: "\n", with: " ")
+                        .filter { allowedChars.contains($0) }
+                        .trimmingCharacters(in: .whitespaces)
+                    cleanedContent = cleanedContent.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }.joined(separator: " ")
+                    print("🧾 Aggressively cleaned vote content: \(cleanedContent)")
+
+                    // --- PATTERN MIGLIORATI ---
+                    let primaryPattern = #"my\s*answer\s*is\s*:?[\s]*([0-9]+)[\s\.]*(?:$|[^0-9])"#;
+                    let vote = findVote(in: cleanedContent, with: primaryPattern, group: 1, excluding: aiIndex)
+                    print("✅ Parsed vote from PRIMARY pattern: \(vote)")
+                    completion(vote)
+                    return
+                    print("⚠️ Primary pattern failed. Trying fallback patterns...")
+                    let fallbackPatterns: [(String, Int)] = [
+                        (#"i\s*vote\s*(for|on)?\s*:?[\s]*(player\s*)?([0-9]+)[\s\.]*(?:$|[^0-9])"#, 3),
+                        (#"my\s*vote\s*is\s*:?[\s]*([0-9]+)[\s\.]*(?:$|[^0-9])"#, 1),
+                        (#"i\s*choose\s*:?[\s]*(player\s*)?([0-9]+)[\s\.]*(?:$|[^0-9])"#, 2),
+                        (#"human\s*is\s*(player\s*)?([0-9]+)[\s\.]*(?:$|[^0-9])"#, 2),
+                        (#"([0-9]+)[\s\.]*(?:$|[^0-9])"#, 1)
+                    ]
+                    for (pattern, group) in fallbackPatterns {
+                        let vote = findVote(in: cleanedContent, with: pattern, group: group, excluding: aiIndex)
+                        print("✅ Parsed vote from FALLBACK pattern '\(pattern)': \(vote)")
+                        completion(vote)
+                        return
+                    }
+                    print("❌ Could not parse vote from any pattern, using random.")
+                    completion(getRandomVoteForAI(aiIndex: aiIndex))
+                } else {
+                    print("❌ Invalid JSON structure")
+                    completion(getRandomVoteForAI(aiIndex: aiIndex))
+                }
+            } catch {
+                print("❌ JSON error: \(error)")
+                completion(getRandomVoteForAI(aiIndex: aiIndex))
+            }
+        }
+        task.resume()
+    }
+
+    private func findVote(in text: String, with pattern: String, group: Int, excluding aiIndex: Int) -> Int {
+        let totalParticipants = 4 // Numero fisso di giocatori
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: [])
+            let range = NSRange(location: 0, length: text.utf16.count)
+            if let match = regex.firstMatch(in: text, options: [], range: range) {
+                let captureGroupRange = match.range(at: group)
+                if let numberRange = Range(captureGroupRange, in: text),
+                   let rawVote = Int(text[numberRange]) {
+                    // Normalizza: se il voto è tra 1 e 4, convertilo in indice Swift (0-3)
+                    var vote: Int
+                    if (1...totalParticipants).contains(rawVote) {
+                        vote = rawVote - 1
+                    } else {
+                        vote = rawVote
+                    }
+                    // Forza sempre nell'intervallo valido
+                    vote = max(0, min(vote, totalParticipants - 1))
+                    // Non escludere mai aiIndex, restituisci sempre il valore estratto
+                    print("[findVote] Estratto: \(rawVote), Normalizzato: \(vote)")
+                    return vote
+                }
+            }
+        } catch {
+            print("Regex error for pattern \(pattern): \(error)")
+        }
+        // Se non trova nulla, restituisci sempre 0
+        print("[findVote] Nessun voto trovato, default 0")
+        return 0
+    }
+    
     private func getRandomVoteForAI(aiIndex: Int) -> Int {
-        var availableVotes = Array(0...aiResponses.count)
+        let totalParticipants = 4 // Numero fisso di giocatori
+        var availableVotes = Array(0..<totalParticipants)
         availableVotes.removeAll { $0 == aiIndex }
-        return availableVotes.randomElement() ?? aiResponses.count
+        return availableVotes.randomElement() ?? 0
     }
 }
