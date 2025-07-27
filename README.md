@@ -8,6 +8,12 @@ Inspired by the classic **Turing Test**, _Hide From AI_ challenges your ability 
 
 If the AIs fail to correctly identify who the human is during the **voting phase**, you win!
 
+## 🧪 About This Project
+
+This app was developed **solely as a learning exercise** — a way to become more familiar with **Swift**, **SwiftUI**, and the iOS development workflow.
+
+> It’s essentially a training ground to explore app building, test ideas, and gain hands-on experience.
+
 ## 🛠 Setup
 
 ### 1. Configure Your API Key
