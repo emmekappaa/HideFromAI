@@ -368,7 +368,7 @@ struct ContentView: View {
             } else {
                 // Fase di votazione
                 if !showResults {
-                    Text("Voting Phase: Who is the human?")
+                    Text("Voting Phase: Pick someone to accuse 👀")
                         .font(.headline)
                         .padding()
                     

@@ -39,12 +39,14 @@ Open the `.xcodeproj` file in **Xcode**, then run the app on a simulator or real
    Enter a group chat with 3 AI participants. Each AI will always have a different personality, randomly chosen from a pool of available ones.
 
 3. **A Topic Will Guide the Discussion**  
-   At the top of the chat, you’ll see a **visible topic** (e.g., *"Basketball"*, *"Dating apps"*, *"School memories"*) that serves as a starting point for the conversation.  
+   At the top of the chat, you’ll see a **visible topic** (e.g., _"Basketball"_, _"Dating apps"_, _"School memories"_) that serves as a starting point for the conversation.
+
    > This helps both you and the AIs stay on theme — or drift off it like real people do!
 
 4. **Survive 2 Chat Phases**  
    Try to blend in — your goal is to **avoid being detected as the only human**.  
-   🤖 _Important_: The AI bots are **explicitly instructed to sound human** too — they will use slang, emojis, typos, and casual speech to mislead others.  
+   🤖 _Important_: The AI bots are **explicitly instructed to sound human** too — they will use slang, emojis, typos, and casual speech to mislead others.
+
    > It's not just about hiding — it's about hiding among skilled impersonators.
 
 5. **Voting Phase**  
@@ -53,16 +55,19 @@ Open the `.xcodeproj` file in **Xcode**, then run the app on a simulator or real
 6. **Win Condition**  
    You win if the AIs **fail to detect you** as the human.
 
-
 ## 📸 Screenshots
 
 | Home Screen                                     | Language Settings                                   |
 | ----------------------------------------------- | --------------------------------------------------- |
 | <img src="./Screenshots/Home.png" width="300"/> | <img src="./Screenshots/Settings.png" width="300"/> |
 
-| Chat Phase                                      | Victory!                                       |
+| Chat Phase                                      | Chat Phase                                     |
 | ----------------------------------------------- | ---------------------------------------------- |
-| <img src="./Screenshots/Chat.png" width="300"/> | <img src="./Screenshots/Win.png" width="300"/> |
+| <img src="./Screenshots/Chat.png" width="300"/> | <img src="./Screenshots/fit.jpg" width="300"/> |
+
+| Win                                            | Lose                                            |
+| ---------------------------------------------- | ----------------------------------------------- |
+| <img src="./Screenshots/Win.png" width="300"/> | <img src="./Screenshots/lose.jpg" width="300"/> |
 
 ## 📋 License
 
