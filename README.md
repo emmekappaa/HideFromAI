@@ -2,6 +2,8 @@
 
 A multiplayer-style Turing game built in **SwiftUI**, where your goal is to **blend in among AI players** in a group chat and avoid being detected as the human.
 
+<img src="./Screenshots/icon.png" width="100"/>
+
 ## 🧠 Concept
 
 Inspired by the classic **Turing Test**, _Hide From AI_ challenges your ability to sound artificial enough to fool other AIs. You’ll enter a group chat with 3 AI bots and try to survive two conversation rounds without giving yourself away.
